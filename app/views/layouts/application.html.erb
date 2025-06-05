@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Fakebook" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <style>
+      .navbar-brand {
+        color: #125688;
+      }
+      .navbar-default {
+        background-color: #fff;
+        height: 3.375rem;
+        .navbar-nav li a {
+          color: #125668;
+        }
+      }
+
+      .navbar-container {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+      .posts-wrapper {
+        padding-top: 2.5rem;
+        margin: 0 auto;
+        max-width: 40.125rem;
+        width: 100%;
+      }
+
+      .post {
+        background-color: #fff;
+        border: 1px solid #edeeee;
+        border-radius: 3px;
+        margin-bottom: 3.75rem;
+        .post-head {
+          flex-direction: row;
+          height: 4rem;
+          padding: 1.5rem auto 1.5rem 1.5rem;
+          color: #125688;
+          font-size: 0.9375rem;
+          line-height: 1.125rem;
+          .user-name, .time-ago {
+            display: inline;
+          }
+
+          .username {
+            font-weight: 500;
+          }
+          .time-ago {
+            color: #A5A7AA;
+            float: right;
+          }
+        }
+      }
+
+      .post-head {
+        height: 4rem;
+        padding: 0.875rem 1.25rem;
+        color: #125668;
+        font-size: 0.9rem;
+        line-height: 1.15rem;
+        .thumbnail {
+
+        }
+        .name {
+          display: block;
+        }
+      }
+
+      .image {
+        border-bottom: 1px solid #eeefef;
+        border-top: 1px solid #eeefef;
+      }
+
+      .form-wrapper {
+        width: 60%;
+        margin: 1.25rem auto;
+        background-color: #fff;
+        padding: 2.5rem;
+        border: 1px solid #eeefef;
+        border-radius: 3px;
+      }
+
+      .edit-links {
+        margin-top: 1.25rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .post-bottom {
+        .user-name, .comment-content {
+          display: inline;
+        }
+        .user-name {
+          font-weight: 500;
+          margin-right: 0.3em;
+          color: #125688;
+          font-size: 0.9375rem;
+        }
+        .comment {
+          margin-top: 0.4375rem;
+          .user-name {
+            font-weight: 500;
+            margin-right: 0.3rem;
+          }
+
+          .delete-comment-icon {
+            float: right;
+            color: #515151;
+          }
+        }
+        margin-bottom: 0.4375rem;
+        padding: 1.5rem 0.625rem 1.5rem 1.5rem;
+        font-size: 0.9375rem;
+        line-height: 1.125rem;
+      }
+
+      .comment-content {
+        border: medium none;
+        width: 100%;
+        color: #4B4F54;
+      }
+
+      .comment-like-form {
+        padding-top: 1.5rem;
+        margin: 0.8125rem auto 1.5rem 1.5rem;
+        min-height: 4.25rem;
+        align-items: center;
+        border-top: 1px solid #EEEFEF;
+        flex-direction: row;
+        justify-content: center;
+      }
+    </style>
+  </head> 
+
+  <body>
+    <%= render "layouts/navbar" %>
+    <div class="container">
+      <% flash.each do |name, msg|  %>
+        <%= content_tag :div, msg, class: [:alert, alert_for(name)] %>
+      <% end %>
+    </div>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<div class="posts-wrapper row">
+  <div class="post" style="display: flex; flex-direction: column">
+    <div class="post-head">
+      <div class="thumb-img"></div>
+      <div class="user-name"><%= post.user.user_name %></div> 
+    </div>
+    <div class="post-bottom">
+      <%= post.content %>
+      <%= link_to 'View post', post_path(post) %>
+      <% if post.comments %>
+        <% post.comments.each do |comment| %>
+          <div class="comment" id="comments_#{post.id}">
+            <%= render post.comments, post: post  %>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="comment-like-form row">
+        <div class="like-button col-sm-1">
+          <span class="glyphicon glyphicon-heart-empty"></span>
+        </div>
+        <div class="comment-form col-sm-11">
+          <%= form_for([post, post.comments.build], remote: true) do |f| %>
+            <%= f.text_field :content, placeholder: 'Add a comment...', id: "comment_content_#{post.id}" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
