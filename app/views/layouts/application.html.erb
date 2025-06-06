@@ -21,6 +21,34 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <style>
+      html {
+        height: 100%;
+      }
+
+      .registration-bg, .login-bg {
+        padding-top: 4em;
+        height: 100%;
+        background-image: url('<%= asset_path("signup.jpg") %>');
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+      .log-in {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        border: none;
+      }
+      .panel {
+        border-radius: 8px;
+
+      }
+      .panel-heading {
+        h2 {
+          text-align: center;
+        }
+      }
       .navbar-brand {
         color: #125688;
       }
@@ -144,6 +172,9 @@
         border-top: 1px solid #EEEFEF;
         flex-direction: row;
         justify-content: center;
+      }
+      .navbar, .alert {
+        margin-bottom: 0px;
       }
     </style>
   </head> 

@@ -2,21 +2,20 @@
   <div class="post" style="display: flex; flex-direction: column">
     <div class="post-head">
       <div class="thumb-img"></div>
-      <div class="user-name"><%= post.user.user_name %></div> 
+      <div class="user-name"><%= post.user.user_name %></div>
+      <div class="time-ago"><%= time_ago_in_words post.created_at %></div>
     </div>
     <div class="post-bottom">
       <%= post.content %>
-      <%= link_to 'View post', post_path(post) %>
-      <% if post.comments %>
-        <% post.comments.each do |comment| %>
-          <div class="comment" id="comments_#{post.id}">
+      <%= link_to 'View post', post_path(post) %> 
+        <div class="comment" id="comments_<%= post.id %>">
+          <% if post.comments %>
             <%= render post.comments, post: post  %>
-          </div>
-        <% end %>
-      <% end %>
+          <% end %>
+        </div>
       <div class="comment-like-form row">
         <div class="like-button col-sm-1">
-          <span class="glyphicon glyphicon-heart-empty"></span>
+          <i class="bi bi-heart"></i>
         </div>
         <div class="comment-form col-sm-11">
           <%= form_for([post, post.comments.build], remote: true) do |f| %>
