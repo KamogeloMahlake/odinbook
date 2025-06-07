@@ -71,3 +71,5 @@ gem "image_processing", "~> 1.14"
 gem "cssbundling-rails", "~> 1.4"
 
 gem "devise", "~> 4.9"
+
+gem "kaminari", "~> 1.2"
