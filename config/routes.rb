@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     resources :comments
   end
   root "posts#index"
+
+  get ":user_name", to: "profiles#show", as: :profile
+  get ":user_name/edit", to: "profiles#edit", as: :edit_profile
+  patch ":user_name/edit", to: "profiles#update", as: :update_profile
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
