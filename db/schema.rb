@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_24_155124) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_23_145801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_24_155124) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "following_id", null: false
+    t.integer "follower_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+    t.index ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true
+    t.index ["following_id"], name: "index_follows_on_following_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "notified_by_id"
+    t.bigint "post_id"
+    t.integer "identifier"
+    t.string "notice_type"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
+    t.index ["post_id"], name: "index_notifications_on_post_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -79,5 +103,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_24_155124) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "notifications", "posts"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "notified_by_id"
   add_foreign_key "posts", "users"
 end

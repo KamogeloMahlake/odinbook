@@ -75,3 +75,5 @@ gem "devise", "~> 4.9"
 gem "kaminari", "~> 1.2"
 
 gem "jquery-turbolinks", "~> 2.1"
+
+gem "acts_as_votable", "~> 0.14.0"

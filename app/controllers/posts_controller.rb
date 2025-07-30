@@ -3,8 +3,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :edit, :create, :update, :destroy ]
   before_action :owned_post, only: [ :edit, :update, :destroy ]
 
-  def index
+  def browse
     @posts = Post.all.order("created_at DESC").page params[:page]
+  end
+  def index
+    @posts = Post.of_followed_users(current_user.following).order("created_at DESC").page params[:page]
   end
 
   def new
